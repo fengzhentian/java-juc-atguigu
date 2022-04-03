@@ -10,8 +10,9 @@ public class ThreadDemo1 {
         // +1方法
         public synchronized void incr() throws InterruptedException {
             // 第二步，判断、干活、通知
-            if (number != 0) {
+            while (number != 0) {
                 // 判断number值是否是0，如果不是0，等待
+                // 在哪里睡，就在哪里醒
                 this.wait();
             }
             // 如果number值是0，就+1操作
@@ -24,7 +25,7 @@ public class ThreadDemo1 {
         // -1方法
         public synchronized void decr() throws InterruptedException {
             // 第二步，判断、干活、通知
-            if (number != 1) {
+            while (number != 1) {
                 // 判断number值是否是1，如果不是1，等待
                 this.wait();
             }
@@ -60,6 +61,26 @@ public class ThreadDemo1 {
                 }
             }
         }, "BB").start();
+
+        new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    share.incr();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, "CC").start();
+
+        new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    share.decr();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, "DD").start();
 
     }
 
