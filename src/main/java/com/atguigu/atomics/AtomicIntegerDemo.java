@@ -13,6 +13,13 @@ class MyNumber {
 
 }
 
+/**
+ * 基础类型原子类
+ *
+ * @author jingjq
+ * @version 1.0
+ * @date 2022-12-17 21:50
+ */
 public class AtomicIntegerDemo {
 
     public static final int SIZE = 50;
