@@ -45,6 +45,7 @@ public class ThreadLocalDemo {
                     System.out.println(Thread.currentThread().getName() + "卖出了" + house.saleVolume.get() + "套房子");
                 } finally {
                     countDownLatch.countDown();
+                    house.saleVolume.remove();
                 }
             }, "Thread-" + i).start();
         }
